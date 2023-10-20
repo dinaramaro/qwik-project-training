@@ -1,0 +1,53 @@
+.acl-page {
+    padding: 25px;
+
+    .title {
+        color: var(--qwik-light-purple);
+    }
+
+    .pagination-item {
+        display: flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+
+        .pagination-select {
+            min-height: 30px;
+            padding: 0 10px;
+            margin: 5px;
+            border: 1px solid;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+        }
+
+        .total-pages-section {
+            padding: 0 10px;
+        }
+
+        .icons-section {
+            display: flex;
+            padding: 0 10px;
+        }
+
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+
+        th,
+        td {
+            min-width: 60px;
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .sort-icn {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

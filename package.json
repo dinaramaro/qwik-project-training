@@ -32,10 +32,14 @@
     "@typescript-eslint/parser": "6.2.0",
     "eslint": "8.45.0",
     "eslint-plugin-qwik": "^1.2.13",
+    "less": "^4.2.0",
     "prettier": "3.0.0",
     "typescript": "5.1.6",
     "undici": "5.22.1",
     "vite": "4.4.7",
     "vite-tsconfig-paths": "4.2.0"
+  },
+  "dependencies": {
+    "@qwikest/icons": "^0.0.10"
   }
 }

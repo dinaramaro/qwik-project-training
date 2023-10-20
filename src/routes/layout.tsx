@@ -1,32 +1,67 @@
 import { component$, Slot, useStyles$ } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
-import type { RequestHandler } from '@builder.io/qwik-city';
+import {
+ routeLoader$,
+ RequestHandler,
+ routeAction$,
+} from '@builder.io/qwik-city';
+import { Buffer } from 'buffer';
 
-import styles from './styles.css?inline';
+import { AclProps, AclResource } from './acls';
 
-export const onGet: RequestHandler = async ({ cacheControl }) => {
- // Control caching for this request for best performance and to reduce hosting costs:
- // https://qwik.builder.io/docs/caching/
- cacheControl({
-  // Always serve a cached response by default, up to a week stale
-  staleWhileRevalidate: 60 * 60 * 24 * 7,
-  // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
-  maxAge: 5,
- });
+export const onRequest: RequestHandler = async ({ headers }) => {
+ // SET HEADERS
+ const login = 'dina.ramarovahoaka@rhinov.fr:password';
+ const buffer = Buffer.from(login);
+ const base64data = buffer.toString('base64');
+ headers.set('Authorization', 'Basic ' + base64data);
+ headers.set('x-api-key', '2');
+ headers.set('Content-Type', 'application/json');
+ headers.set('Content-Language', 'fr-FR');
+
+ const obj: Record<string, string> = {};
+ headers.forEach((value, key) => (obj[key] = value));
 };
 
-export const useServerTimeLoader = routeLoader$(() => {
- return {
-  date: new Date().toISOString(),
+// Application pages Requests
+export const useAcls = routeLoader$(async (requestEvent) => {
+ const { headers, query } = requestEvent;
+
+ //TODO: update func for last column (acltype.name). Add asc/desc
+ let queryPagination = '';
+ let queryObj: Record<string, string> = {
+  sort: 'id',
+  limit: '50',
+  page: '1',
  };
+
+ if (query) {
+  query.forEach((v, k) => (queryObj[k] = v));
+ }
+
+ queryPagination = `limit=${queryObj.limit}&page=${queryObj.page}&sort=aclsubjects.${queryObj.sort}`;
+ console.log('query obj', queryObj);
+
+ const data = await fetch(
+  `https://api.rhinov.fr/bo/acl?${queryPagination}&q.menuId.eq=administration.acls`,
+  { headers }
+ );
+
+ // TODO: refacto func to handle errors (throwerror, sendStatus eventually etc.)
+ const acls = (await data.json()) as AclResource;
+
+ const aclsProps = {
+  acls: acls,
+  params: queryObj,
+ } as AclProps;
+
+ return aclsProps;
 });
 
 export default component$(() => {
- useStyles$(styles);
  return (
   <>
    <main>
-    <Slot /> {/* index.txs */}
+    <Slot />
    </main>
   </>
  );
