@@ -171,11 +171,16 @@ export default component$(() => {
       {AclColumnsObj.map((column: { path: string; label: string }, i) => (
        <th id={column.label} key={i}>
         <p>{column.label}</p>
-        <LuArrowUpDown
-         onClick$={async () => {
-          await nav(`/acls/?sort=${column.path}`);
-         }}
-        />
+        {/* TODO: add sort on acl.typename (deep path) */}
+        {column.path !== 'acltypes.name' && column.path !== 'description' ? (
+         <button
+          onClick$={async () => {
+           await nav(`/acls/?sort=${column.path}`);
+          }}
+         >
+          <LuArrowUpDown />
+         </button>
+        ) : null}
        </th>
       ))}
      </thead>
