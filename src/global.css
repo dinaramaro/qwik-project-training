@@ -45,9 +45,16 @@ body {
   line-height: inherit;
 }
 
-svg {
-  cursor: pointer;
+button {
+  display: flex;
+  align-items: center;
   padding: 5px;
+  background-color: transparent;
+  border: none;
+
+&:hover {
+  cursor: pointer;
+}
 }
 
 

@@ -5,32 +5,68 @@
         color: var(--qwik-light-purple);
     }
 
-    .pagination-item {
+    .filter-bar {
         display: flex;
-        min-height: 40px;
-        align-items: center;
         justify-content: center;
-        padding: 15px;
 
-        .pagination-select {
-            min-height: 30px;
-            padding: 0 10px;
-            margin: 5px;
-            border: 1px solid;
-            border-radius: 0px;
-            -webkit-border-radius: 0px;
-        }
-
-        .total-pages-section {
-            padding: 0 10px;
-        }
-
-        .icons-section {
+        .total-result {
             display: flex;
-            padding: 0 10px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: bold;
         }
 
+        .pagination-item {
+            display: flex;
+            min-height: 40px;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+
+            .pagination-select {
+                min-height: 30px;
+                padding: 0 10px;
+                margin: 5px;
+                border: 1px solid;
+                border-radius: 0px;
+                -webkit-border-radius: 0px;
+            }
+
+            .total-pages-section {
+                padding: 0 10px;
+            }
+
+            .icons-section {
+                display: flex;
+                padding: 0 10px;
+            }
+        }
+
+        .search-input-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 100px;
+
+            input {
+                width: 270px;
+                margin: 0 10px;
+            }
+
+            button {
+                display: flex;
+                padding: 0;
+                height: 100%;
+
+                svg {
+                    align-self: center;
+                    padding: 0 5px;
+                    font-size: 20px;
+                }
+            }
+
+        }
     }
+
 
     .table {
         width: 100%;

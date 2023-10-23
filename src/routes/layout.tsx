@@ -28,10 +28,12 @@ export const useAcls = routeLoader$(async (requestEvent) => {
 
  //TODO: update func for last column (acltype.name). Add asc/desc
  let queryPagination = '';
+ let querySearch = '';
  let queryObj: Record<string, string> = {
   sort: 'id',
   limit: '50',
   page: '1',
+  search: '',
  };
 
  if (query) {
@@ -39,10 +41,12 @@ export const useAcls = routeLoader$(async (requestEvent) => {
  }
 
  queryPagination = `limit=${queryObj.limit}&page=${queryObj.page}&sort=aclsubjects.${queryObj.sort}`;
- console.log('query obj', queryObj);
+ if (queryObj.search !== '') {
+  querySearch = `(q.aclsubjects.id.lk=${queryObj.search}|q.aclsubjects.name.lk=${queryObj.search}|q.aclsubjects.function.lk=${queryObj.search})`;
+ }
 
  const data = await fetch(
-  `https://api.rhinov.fr/bo/acl?${queryPagination}&q.menuId.eq=administration.acls`,
+  `https://api.rhinov.fr/bo/acl?${queryPagination}&${querySearch}&q.menuId.eq=administration.acls`,
   { headers }
  );
 
