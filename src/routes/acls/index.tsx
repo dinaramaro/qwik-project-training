@@ -16,6 +16,7 @@ import { useNavigate } from '@builder.io/qwik-city';
 
 import styles from './acls.less?inline';
 import { useAcls } from '../layout';
+import UploadFileForm from '~/components/upload-file-form/upload-file-form';
 
 export interface Acl {
  id: number;
@@ -49,6 +50,9 @@ const AclColumnsObj = [
  { label: 'Function', path: 'function' },
  { label: 'ACL typename', path: 'acltypes.name' },
 ];
+
+//TODO: set pagination on init with url query parameters (useLocation())
+//TODO: define logic rules for integration of pagination (when to reinitialize to page 1, ...)
 
 export default component$(() => {
  useStyles$(styles);
@@ -88,6 +92,10 @@ export default component$(() => {
  return (
   <div class='acl-page'>
    <h2 class='title'>Gestion des ACLS</h2>
+
+   <div class='form'>
+    <UploadFileForm />
+   </div>
 
    <div class='filter-bar'>
     <div class='pagination-item'>

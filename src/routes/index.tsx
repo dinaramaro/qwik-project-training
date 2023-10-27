@@ -1,9 +1,7 @@
 /* eslint-disable no-console */
-import { component$, useStore } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 
-import Acls, { AclProps } from './acls';
-
-// import { useAcls } from './layout';
+import Acls from './acls';
 
 export default component$(() => {
  return (

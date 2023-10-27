@@ -1,12 +1,11 @@
-import { component$, Slot, useStyles$ } from '@builder.io/qwik';
-import {
- routeLoader$,
- RequestHandler,
- routeAction$,
-} from '@builder.io/qwik-city';
 import { Buffer } from 'buffer';
+import { component$, Slot } from '@builder.io/qwik';
+import type { InitialValues } from '@modular-forms/qwik';
+import type { RequestHandler } from '@builder.io/qwik-city';
+import { routeLoader$ } from '@builder.io/qwik-city';
 
 import { AclProps, AclResource } from './acls';
+import { myForm } from '~/components/upload-file-form/upload-file-form';
 
 export const onRequest: RequestHandler = async ({ headers }) => {
  // SET HEADERS
@@ -21,6 +20,11 @@ export const onRequest: RequestHandler = async ({ headers }) => {
  const obj: Record<string, string> = {};
  headers.forEach((value, key) => (obj[key] = value));
 };
+
+export const useFormLoader = routeLoader$<InitialValues<myForm>>(() => ({
+ file: null,
+ sendBy: 'nom',
+}));
 
 // Application pages Requests
 export const useAcls = routeLoader$(async (requestEvent) => {
