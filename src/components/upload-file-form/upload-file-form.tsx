@@ -35,7 +35,7 @@ export default component$(() => {
 
  const handleSubmit: SubmitHandler<myForm> = $((values, event) => {
   // Runs on client
-  console.log(values);
+  console.log('submitted values', values);
  });
 
  return (
